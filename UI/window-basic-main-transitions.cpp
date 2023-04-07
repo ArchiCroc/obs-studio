@@ -808,6 +808,18 @@ void OBSBasic::CreateProgramOptions()
 	layout->addWidget(tBar);
 	layout->addStretch(0);
 
+	bool studioPortraitLayout = config_get_bool(
+		GetGlobalConfig(), "BasicWindow", "StudioPortraitLayout");
+
+	if (studioPortraitLayout) {
+		layout->setDirection(QBoxLayout::LeftToRight);
+		layout->setSpacing(10);
+	} else {
+		layout->setDirection(QBoxLayout::TopToBottom);
+	}
+		
+	
+
 	programOptions->setLayout(layout);
 
 	auto onAdd = [this]() {

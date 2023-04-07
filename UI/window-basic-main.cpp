@@ -4577,10 +4577,18 @@ void OBSBasic::ResetUI()
 	bool studioPortraitLayout = config_get_bool(
 		GetGlobalConfig(), "BasicWindow", "StudioPortraitLayout");
 
-	if (studioPortraitLayout)
-		ui->previewLayout->setDirection(QBoxLayout::BottomToTop);
-	else
+	if (studioPortraitLayout) 
+		ui->previewLayout->setDirection(QBoxLayout::TopToBottom);
+	 else 
 		ui->previewLayout->setDirection(QBoxLayout::LeftToRight);
+	
+	if (previewProgramMode) {
+		ui->previewLayout->removeWidget(programOptions);
+		delete programOptions;
+		CreateProgramOptions();
+		RefreshQuickTransitions();
+		ui->previewLayout->insertWidget(2, programOptions);
+	 }
 
 	UpdatePreviewProgramIndicators();
 }
