@@ -1,6 +1,6 @@
 {
-    "$schema": "schema/service-schema-v4.json",
-    "format_version": 4,
+    "$schema": "schema/service-schema-v5.json",
+    "format_version": 5,
     "services": [
         {
             "name": "Twitch",
@@ -1817,10 +1817,6 @@
                 {
                     "name": "Toronto 1",
                     "url": "rtmp://tor-ingest.angelthump.com:1935/live"
-                },
-                {
-                    "name": "Bangalore 1",
-                    "url": "rtmp://blr-ingest.angelthump.com:1935/live"
                 },
                 {
                     "name": "Amsterdam 3",

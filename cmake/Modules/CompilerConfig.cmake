@@ -5,6 +5,20 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+# CMake < 3.21 only goes up to 11, but it's mostly identical to 17 anyway.
+if(${CMAKE_VERSION} VERSION_LESS "3.21.0")
+  set(CMAKE_C_STANDARD 11)
+  set(CMAKE_C_STANDARD_REQUIRED ON)
+else()
+  set(CMAKE_C_STANDARD 17)
+  set(CMAKE_C_STANDARD_REQUIRED ON)
+endif()
+
+# TODO/FIXME: Investigate disabling C extensions on Linux/POSIX
+if(OS_MACOS OR NOT OS_POSIX)
+  set(CMAKE_C_EXTENSIONS OFF)
+endif()
+
 # Set compile options for MSVC
 if(OS_WINDOWS AND MSVC)
   if(NOT EXISTS "${CMAKE_BINARY_DIR}/ALL_BUILD.vcxproj.user")
@@ -66,8 +80,7 @@ if(OS_WINDOWS AND MSVC)
     /utf-8
     /permissive-
     /Zc:__cplusplus
-    /Zc:preprocessor
-    /std:c17)
+    /Zc:preprocessor)
 
   add_link_options(
     "LINKER:/Brepro" "LINKER:/OPT:REF" "LINKER:/WX" "$<$<NOT:$<EQUAL:${CMAKE_SIZEOF_VOID_P},8>>:LINKER\:/SAFESEH\:NO>"

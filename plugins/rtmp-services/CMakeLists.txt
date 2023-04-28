@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.16...3.25)
 
 legacy_check()
 
-option(ENABLE_SERVICE_UPDATES "Checks for service updates" OFF)
+option(ENABLE_SERVICE_UPDATES "Checks for service updates" ON)
 
 set(RTMP_SERVICES_URL
     "https://obsproject.com/obs2_update/rtmp-services"
@@ -35,7 +35,7 @@ target_sources(
           rtmp-services-main.c
           rtmp-format-ver.h)
 
-target_compile_definitions(rtmp-services PRIVATE RTMP_SERVICES_URL="${RTMP_SERVICES_URL}"
+target_compile_definitions(rtmp-services PRIVATE SERVICES_URL="${RTMP_SERVICES_URL}"
                                                  $<$<BOOL:${ENABLE_SERVICE_UPDATES}>:ENABLE_SERVICE_UPDATES>)
 
 target_link_libraries(rtmp-services PRIVATE OBS::libobs OBS::file-updater jansson::jansson)
